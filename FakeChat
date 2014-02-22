@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- Тег meta для указания кодировки -->
+ <meta charset="utf-8">
+ <style>
+ .MainContainer
+ { 	
+ 	width: 500px;
+ 	height: 300px;
+ 	color: #5E5E5E;
+ 	font-size: 18px; 
+ }
+ .ChatContainer
+ {
+ 	border: solid 3px grey;
+ 	outline: #c3c3c3 auto 5px;
+ 	width: 492px;
+ 	height: 250px; 	
+ 	float: left;
+ 	overflow: auto;
+ 	margin: 1px;
+ }
+ .ChatContainer p
+ {
+ 	margin: 3px;
+ }
+ .ControlsContainer div,
+ .ControlsContainer input
+ {
+ 	display: inline-block;
+ 	margin: 1px;
+ 	border: solid 3px grey;
+ 	outline: #c3c3c3 auto 5px;
+ }
+ .TextBox
+ {
+ 	width: 300px;
+ 	height: 31px;
+ 	padding: 0px 3px;
+ 	float: left;
+ 	color: #5E5E5E;
+ 	font-size: 18px; 
+ }
+ .TextBox:focus
+ {
+ 	border: solid 3px #5E5E5E;
+	outline: #c3c3c3 auto 5px;
+ }
+ .ChatButton
+ {
+ 	width: 85px;
+ 	height: 31px;
+ 	float: right;
+ 	line-height: 31px;
+ 	text-align: center;
+ 	cursor: default;
+ 	-webkit-user-select: none;
+ }
+ </style>
+ <script>
+ 	SS = {};
+ 	SS.Chat = function(parentNode)
+  	{
+  		this.ParentNode = parentNode;  		
+  		this._StoragePartName = 'ChatPart';
+
+  		this.renderChatDom();
+  	};
+  	var chatProto = Chat.prototype;
+	
+	chatProto.renderChatDom = function()
+	{		
+		this._container = document.createElement('div'),
+    		this._chatContainer = document.createElement('div'),
+	    	this._controlsContainer = document.createElement('div'),
+	    	this._textBox = document.createElement('input')
+	    	this._sendBtn = document.createElement('div'),
+	    	this._clearBtn = document.createElement('div');
+
+	    	this._container.className = 'MainContainer';
+		this._chatContainer.className = 'ChatContainer';
+		this._controlsContainer.className = 'ControlsContainer';
+		this._textBox.className = 'TextBox';
+		this._sendBtn.className = 'ChatButton';
+		this._clearBtn.className = 'ChatButton';
+
+		this._container.appendChild(this._chatContainer);
+		this._container.appendChild(this._controlsContainer);
+		this._controlsContainer.appendChild(this._textBox);
+		this._controlsContainer.appendChild(this._clearBtn);
+		this._controlsContainer.appendChild(this._sendBtn);
+		this._sendBtn.innerHTML = 'Send';
+		this._clearBtn.innerHTML = 'Clear';
+
+		window.addEventListener('storage', this._onChangeStorageData.bind(this), false);
+		this._sendBtn.addEventListener('click', this._onSendBtnClick.bind(this));
+		this._clearBtn.addEventListener('click', this._onClearBtnClick.bind(this));
+		
+		
+		if(this.ParentNode)
+			this.addToNode(this.ParentNode);
+		this.refreshContentOfStorage();
+	};
+
+	chatProto.refreshContentOfStorage = function()
+	{
+		var storageData = this._getStorageData(),
+			msgArray = storageData ? storageData.AllMessages || [] : [];
+		for (var i = 0; i < msgArray.length; i++)
+			this.showNewMessage(msgArray[i]);
+	};
+
+	chatProto.addToNode = function(node)
+	{
+		this.ParentNode = node;
+		if(this.ParentNode.appendChild)
+			this.ParentNode.appendChild(this._container);
+	};
+
+	chatProto.clear = function()
+	{
+		this._chatContainer.innerHTML = '';
+		this._textBox.value = '';
+	};
+
+	chatProto.showNewMessage = function(text)
+	{
+		this._textBox.value = text;
+		var messageDom = document.createElement('p');
+		messageDom.innerHTML = text;
+		this._chatContainer.appendChild(messageDom);				
+		this._chatContainer.scrollTop = (this._chatContainer.scrollHeight - this._chatContainer.offsetHeight);
+	};
+
+	chatProto._onSendBtnClick = function()
+	{
+		var messageText = this._textBox.value;
+		if(messageText)
+		{
+			this.showNewMessage(messageText);
+			
+			var storageData = this._getStorageData();
+			if(!storageData.AllMessages)
+				storageData.AllMessages = [];
+			storageData.LastMessage = messageText;
+			storageData.AllMessages.push(messageText);
+			this._setStorageData(storageData);
+		}
+	};
+
+	chatProto._onClearBtnClick = function()
+	{		
+		localStorage.setItem(this._StoragePartName, '{}');
+		this.clear();
+	};
+
+	chatProto._onChangeStorageData = function()
+	{
+		var storageData = this._getStorageData();
+		if(!storageData.AllMessages)
+		{
+			localStorage.clear();
+			this.clear();
+		}
+		else
+			this.showNewMessage(storageData.LastMessage);
+	};
+
+	chatProto._getStorageData = function()
+	{
+		var storageData = JSON.parse(localStorage.getItem(this._StoragePartName));
+		return storageData||{};
+	};
+
+	chatProto._setStorageData = function(storageData)
+	{
+		localStorage.setItem(this._StoragePartName, JSON.stringify(storageData));
+	};
+
+	chatProto = null;
+ </script>
+</head>
+<body>
+  <script>
+  	var myChat = new SS.Chat(document.body);
+  </script> 
+</body>
+</html>
