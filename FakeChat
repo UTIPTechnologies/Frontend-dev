@@ -72,13 +72,13 @@
 	chatProto.renderChatDom = function()
 	{		
 		this._container = document.createElement('div'),
-    	this._chatContainer = document.createElement('div'),
-    	this._controlsContainer = document.createElement('div'),
-    	this._textBox = document.createElement('input')
-    	this._sendBtn = document.createElement('div'),
-    	this._clearBtn = document.createElement('div');
+    		this._chatContainer = document.createElement('div'),
+	    	this._controlsContainer = document.createElement('div'),
+	    	this._textBox = document.createElement('input')
+	    	this._sendBtn = document.createElement('div'),
+	    	this._clearBtn = document.createElement('div');
 
-	    this._container.className = 'MainContainer';
+	    	this._container.className = 'MainContainer';
 		this._chatContainer.className = 'ChatContainer';
 		this._controlsContainer.className = 'ControlsContainer';
 		this._textBox.className = 'TextBox';
