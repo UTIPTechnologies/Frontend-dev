@@ -1,0 +1,38 @@
+﻿<!doctype HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+ <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+ <script>
+ $(document).ready(function() {
+
+	$('#s1').click(function(){
+		localStorage.setItem("ttb3r`:mess", $('#t1').val());
+		var itxt = $('#t1').val()+"&#13;";
+		$('#a1').append(itxt);
+		$('#t1').val('');
+	});
+ 
+	$('#c1').click(function(){
+		$('#a1').val('');
+	});
+	  
+	function onStorage() {
+		var stit = localStorage.getItem("ttb3r`:mess");
+		var oxt = stit + "&#13;";
+		if(stit !== null) $('#a1').append(oxt);
+	} 
+	
+	window.addEventListener('storage', onStorage, false);
+	
+ });
+ </script>
+ </head>
+<body>
+<textarea id="a1" style="width:300px;height:150px;" ></textarea>
+<br>
+<br>
+<input type="text" id="t1"  autofocus>
+<input type="submit" id="s1" name="send"> <input type="button" id="c1" value="очистить">
+</body>
+</html>
