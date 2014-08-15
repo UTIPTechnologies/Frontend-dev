@@ -1,35 +1,39 @@
 ﻿<!doctype HTML>
 <html>
 <head>
-<meta charset="UTF-8">
- <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<meta charset="UTF-8"> 
  <script>
- $(document).ready(function() {
-
-	$('#s1').click(function(){
-		localStorage.setItem("ttb3r`:mess", $('#t1').val());
-		var itxt = $('#t1').val()+"&#13;";
-		$('#a1').append(itxt);
-		$('#t1').val('');
-	});
+ function ready() {
+	var ielm = document.getElementById('t1');
+	var aelm = document.getElementById('a1');
+	var celm = document.getElementById('c1');
+	var selm = document.getElementById('s1');
+	selm.onclick = function(){
+		localStorage.setItem("ttb3r`:mess", ielm.value);
+		var itxt = ielm.value + "\n";
+		aelm.value += itxt;
+		ielm.value = '';
+	};
  
-	$('#c1').click(function(){
-		$('#a1').val('');
-	});
+	celm.onclick = function(){
+		aelm.value = '';
+	};
 	  
 	function onStorage() {
 		var stit = localStorage.getItem("ttb3r`:mess");
-		var oxt = stit + "&#13;";
-		if(stit !== null) $('#a1').append(oxt);
+		var oxt = stit + "\n";
+		if(stit !== null) aelm.value += oxt;
 	} 
 	
 	window.addEventListener('storage', onStorage, false);
 	
- });
+ }
+   document.addEventListener("DOMContentLoaded", ready, false);
+ 
  </script>
  </head>
 <body>
-<textarea id="a1" style="width:300px;height:150px;" ></textarea>
+<textarea id="a1" style="width:300px;height:150px;" readonly></textarea>
 <br>
 <br>
 <input type="text" id="t1"  autofocus>
