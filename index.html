@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Тестовый обмен сообщениями</title>
+
+    <link type="text/css" href="bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+
+        <form class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-md-12">                     
+                        <textarea id="viewer" class="form-control" readonly="true"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="textinput">Новое сообщение:</label>  
+                    <div class="col-md-9">
+                        <input id="message" type="text" class="form-control input-md" value="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12 on-right">
+                        <button class="btn btn-primary" type="button" id="send">
+                            Отправить сообщение
+                        </button>
+                        <button class="btn btn-default" type="button" id="clear">
+                            Удалить сообщения
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        
+    </div>
+
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
