@@ -3,7 +3,6 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <script src="html5util.js"></script>
 </head>
 <body>
 <textarea id="textO" rows="10"></textarea><br>
@@ -18,20 +17,27 @@
             clear = document.getElementById('clear'),
             text = document.getElementById('text');
 
-   addEvent(window, 'storage', function (event) {
-        if (event.key == 'chat-storage') {
-            textO.innerHTML += event.newValue+"\n";
-        }
-    });
-
-    addEvent(send, 'click', function () {
+    send.addEventListener("click", function(event){
         localStorage.setItem('chat-storage', text.value);
         textO.value += text.value+"\n";
         text.value="";
     });
-    addEvent(clear, 'click', function () {
+    clear.addEventListener("click", function(event){
+        localStorage.setItem('chat-clear', true);
         textO.value ="";
+
     });
+    window.addEventListener("storage", function(event){
+        if (event.key == 'chat-storage') {
+            textO.value += event.newValue+"\n";
+        }
+        if (event.key == 'chat-clear') {
+            textO.value ="";
+            localStorage.removeItem("chat-clear");
+        }
+
+    });
+
 
 </script>
 </body>
