@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<textarea id="textO" rows="10"></textarea><br>
+<input id="text" type="text"/>
+<button id="clear">Очистить</button>
+<button id="send">Отправить</button>
+<script type="application/javascript">
+    var send = document.getElementById('send'),
+            chat = document.getElementById('chat'),
+            textO = document.getElementById('textO'),
+            clear = document.getElementById('clear'),
+            text = document.getElementById('text');
+
+    send.addEventListener("click", function(event){
+        localStorage.setItem('chat-storage', text.value);
+        textO.value += text.value+"\n";
+        text.value="";
+    });
+    clear.addEventListener("click", function(event){
+        localStorage.setItem('chat-clear', true);
+        textO.value ="";
+
+    });
+    window.addEventListener("storage", function(event){
+        if (event.key == 'chat-storage') {
+            textO.value += event.newValue+"\n";
+        }
+        if (event.key == 'chat-clear') {
+            textO.value ="";
+            localStorage.removeItem("chat-clear");
+        }
+
+    });
+
+
+</script>
+</body>
+</html>
