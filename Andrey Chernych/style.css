@@ -1,0 +1,25 @@
+#main-container {
+	width: 600px;
+	margin: 0 auto;
+	padding-top: 30px;
+}
+
+#log-textarea {
+    padding: 0;
+}
+
+.btn-style {
+	width: 80px;
+}
+			
+.btn-group {
+	margin-top: 5px;
+	float: right;
+}
+			
+.width-stretch {
+	width: 100%;
+}
+
+
+			
