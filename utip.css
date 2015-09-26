@@ -1,0 +1,16 @@
+.brush_button {
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+    border-radius: 3px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+.brush_button_background {
+    background: lightgray;
+}
+.brush_size {
+    text-align: center;
+    background: black;
+}

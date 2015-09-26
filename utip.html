@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Тестовое задание Боровенников</title>
+    <link rel="stylesheet" type="text/css" href="utip.css"/>
+    <script src="utip.js"></script>
+</head>
+<body onload="on_load();">
+<div id="canvas_container" style="width: 300px; height: 150px; margin: 5px; border-style: solid">
+    <canvas id="canvas"></canvas>
+</div>
+<div id="palette" style="margin: 5px; border-style: groove; width: 300px">
+    Цвет
+    <div id="red" class="brush_button" style="background: red" onclick="set_brush('red');"></div>
+    <div id="green" class="brush_button" style="background: green" onclick="set_brush('green');"></div>
+    <div id="blue" class="brush_button" style="background: blue" onclick="set_brush('blue');"></div>
+    <div id="black" class="brush_button" style="background: black" onclick="set_brush('black');"></div>
+    <div id="gray" class="brush_button" style="background: gray" onclick="set_brush('gray');"></div>
+</div>
+<div id="brush" style="margin: 5px; border-style: groove; width: 300px">
+    Кисть
+    <div id="small" class="brush_button brush_button_background" onclick="set_brush('small');">
+        <div class="brush_size" style="width: 4px; height: 4px; border-radius: 2px; margin: 13px"></div>
+    </div>
+    <div id="medium" class="brush_button brush_button_background" onclick="set_brush('medium');">
+        <div class="brush_size" style="width: 10px; height: 10px; border-radius: 5px; margin: 10px"></div>
+    </div>
+    <div id="large" class="brush_button brush_button_background" onclick="set_brush('large');">
+        <div class="brush_size" style="width: 20px; height: 20px; border-radius: 10px; margin: 5px"></div>
+    </div>
+</div>
+<div id="buttons" style="margin: 5px;">
+    <button onclick="save_canvas();">Сохранить</button>
+    <button onclick="clear_canvas();">Очистить</button>
+</div>
+</body>
+</html>
